@@ -1,18 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Formulario</title>
+</head>
+<body>
+    <h2>Agregar nombre</h2>
+    <form method="post">
+        Nombre: <input type="text" name="nombre" required>
+        <input type="submit" value="Guardar">
+    </form>
+
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-$servername = getenv("lab51mysql.mysql.database.azure.com");
-$username = getenv("dayana");
-$password = getenv("Estefania1.");
-$dbname = getenv("formulario_db");
+// Datos de conexión a MySQL en Azure
+$servername = "lab51mysql.mysql.database.azure.com";
+$username = "dayana@lab51mysql";
+$password = "Estefania1.";  // Reemplaza por tu contraseña real
+$dbname = "formulario_db";
+$port = 3306;
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+// Conexión con SSL (modo requerido por Azure)
+$conn = new mysqli($servername, $username, $password, $dbname, $port, "/etc/ssl/certs/ca-certificates.crt");
 
 if ($conn->connect_error) {
     die("❌ Conexión fallida: " . $conn->connect_error);
-} else {
-    echo "✅ Conexión exitosa<br>";
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -21,13 +34,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt = $conn->prepare("INSERT INTO personas (nombre) VALUES (?)");
         $stmt->bind_param("s", $nombre);
         if ($stmt->execute()) {
-            echo "✔ Nombre guardado.<br>";
+            echo "✔ Nombre guardado.<br><br>";
         } else {
-            echo "❌ Error al guardar el nombre: " . $stmt->error . "<br>";
+            echo "❌ Error al guardar el nombre: " . $stmt->error . "<br><br>";
         }
         $stmt->close();
     } else {
-        echo "❗ El nombre no puede estar vacío.<br>";
+        echo "❗ El nombre no puede estar vacío.<br><br>";
     }
 }
 
@@ -36,5 +49,8 @@ $result = $conn->query("SELECT * FROM personas");
 while($row = $result->fetch_assoc()) {
     echo "ID: " . $row["id"] . " - Nombre: " . htmlspecialchars($row["nombre"]) . "<br>";
 }
+
 $conn->close();
 ?>
+</body>
+</html>
