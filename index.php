@@ -2,10 +2,10 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-$servername = getenv("DB_HOST");
-$username = getenv("DB_USER");
-$password = getenv("DB_PASSWORD");
-$dbname = getenv("DB_NAME");
+$servername = getenv("lab51mysql.mysql.database.azure.com");
+$username = getenv("dayana");
+$password = getenv("Estefania1.");
+$dbname = getenv("formulario_db");
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
