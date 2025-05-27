@@ -11,11 +11,18 @@
     </form>
 
     <?php
-    // Conexión a la base de datos
-    $conn = new mysqli("10.0.0.4", "dayana", "Estefania1.", "formulario_db");
+    // CONFIGURA TUS DATOS DE CONEXIÓN AQUÍ
+    $servername = "lab51mysql.mysql.database.azure.com"; 
+    $username = "dayana@NOMBREDELHOST"; // ← incluye el @host
+    $password = "Estefania1.";
+    $dbname = "formulario_db";
 
+    // Crear conexión
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    // Verificar conexión
     if ($conn->connect_error) {
-        die("Conexión fallida: " . $conn->connect_error);
+        die("❌ Conexión fallida: " . $conn->connect_error);
     }
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
