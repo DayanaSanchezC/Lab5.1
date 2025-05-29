@@ -14,13 +14,12 @@
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
 
-    // Parámetros de conexión
     $host = "lab51mysql.mysql.database.azure.com";
-    $username = "dayana";  // ← sin @lab51mysql porque ese usuario no existe
-    $password = "Estefania1.";  // Asegúrate de que sea la contraseña correcta
+    $username = "dayana";  
+    $password = "Estefania1.";  
     $database = "formulario_db";
     $port = 3306;
-    $ssl_cert = "/etc/ssl/certs/ca-certificates.crt"; // Ruta al bundle SSL (ya presente en Azure App Service)
+    $ssl_cert = "/etc/ssl/certs/ca-certificates.crt"; 
 
     // Inicializar conexión con SSL
     $conn = mysqli_init();
